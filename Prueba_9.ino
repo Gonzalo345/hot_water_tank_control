@@ -84,56 +84,52 @@ void draw(){
   //u8g.setFont(u8g_font_micro);
   u8g.setFont(u8g_font_5x7);
   // upper frame ===============================================================
-  u8g.drawFrame(73,5,8,8);
-  u8g.drawStr( 73, 20, "Bo");
-  u8g.drawFrame(86,5,8,8);
-  u8g.drawStr( 86, 20, "Ca");
-  u8g.drawFrame(99,5,8,8);
-  u8g.drawStr( 99, 20, "Fr");
-  u8g.drawFrame(112,5,8,8);
-  u8g.drawStr( 112, 20, "Ca");
+  u8g.drawFrame(65,5,8,8);
+  u8g.drawStr( 65, 20, "Carg"); //Carga
+  u8g.drawFrame(85,5,8,8);
+  u8g.drawStr( 85, 20, "Res");
+  u8g.drawFrame(105,5,8,8);
+  u8g.drawStr( 105, 20, "Frio"); // Frio
+  //u8g.drawFrame(112,5,8,8);
+  //u8g.drawStr( 112, 20, "Ca");
   // lower frame =============================================================
-  u8g.setFont(u8g_font_5x7);
+  //u8g.setFont(u8g_font_5x7);
   //u8g.setFont(u8g_font_micro);
-  u8g.drawFrame(9,51,8,8);
-  u8g.drawStr( 11, 58, "R");
-  u8g.drawFrame(22,51,8,8);
+  //u8g.drawFrame(9,51,8,8);
+  //u8g.drawStr( 11, 58, "R");
+  //u8g.drawFrame(22,51,8,8);
 
-  u8g.drawFrame(35,51,8,8);
-  u8g.drawFrame(48,51,8,8);
+  //u8g.drawFrame(35,51,8,8);
+  //u8g.drawFrame(48,51,8,8);
   // level circle ============================================================
   u8g.drawCircle(88, 42, 18);
-  u8g.setFont(u8g_font_5x8);
-  u8g.drawStr(105,30, "100%");
-
   // Auto ====================================================================
   u8g.setFont(u8g_font_5x8);
   u8g.drawStr(105,60, "Auto");
   // clocks ==================================================================
-  u8g.drawCircle(10, 10, 5);
-  u8g.drawLine(10, 10, 13, 10);
-  u8g.drawLine(10, 10, 10, 7);
-  u8g.drawCircle(10, 25, 5);
-  u8g.drawLine(10, 25, 10, 22);
-  u8g.drawLine(10, 25, 13, 25);
+  u8g.drawCircle(10, 34, 5);
+  u8g.drawLine(10, 34, 13, 34);
+  u8g.drawLine(10, 34, 10, 31);
+  u8g.drawCircle(10, 52, 5);
+  u8g.drawLine(10, 52, 10, 49);
+  u8g.drawLine(10, 52, 13, 52);
   // Times oo ================================================================
-  u8g.drawCircle(20, 7, 2);
-  u8g.drawCircle(20, 13, 2);
-  u8g.drawCircle(20, 22, 2);
-  u8g.drawCircle(20, 28, 2);
-  // °C ======================================================================
-  u8g.drawCircle(54, 30, 1);
-  u8g.setFont(u8g_font_6x10);
-  u8g.drawStr(57,36, "C");
+  u8g.drawCircle(20, 31, 2);
+  u8g.drawCircle(20, 35, 2);
+  u8g.drawCircle(20, 49, 2);
+  u8g.drawCircle(20, 54, 2);
   // Cte =====================================================================
   u8g.setFont(u8g_font_5x8);
-  u8g.drawStr(54,47, "Ct");
+  u8g.drawStr(30,57, "T Cte");
   // Time ====================================================================
   u8g.setFont(u8g_font_8x13B);
-  u8g.drawStr(27,18, "14:07");
+  u8g.drawStr(7,17, "14:07");
   // Temperature =============================================================
   u8g.setFont(u8g_font_10x20);
-  u8g.drawStr(27,47, "24");
+  u8g.drawStr(30,42, "24");
+  // °C ======================================================================
+  u8g.drawCircle(50, 29, 1);
+  u8g.drawStr(47,46, "C")
 
   // DS18B20 section ===========================================================
   sensors.requestTemperatures();
@@ -184,4 +180,9 @@ void fill(unsigned char percent) {     // Filled test
   for (i=0; i < percent; i++){
     u8g.drawLine(x-largo[i] , y-i, x+largo[i] , y-i);
   }
+  u8g.setFont(u8g_font_5x8);
+  if (percent <= 8)                   u8g.drawStr(105,30, "25%" );
+  if (percent > 8  && percent <= 17)  u8g.drawStr(105,30, "50%" );
+  if (percent > 17 && percent <= 26)  u8g.drawStr(105,30, "75%" );
+  if (percent > 26 && percent <= 35)  u8g.drawStr(105,30, "100%");
 }
