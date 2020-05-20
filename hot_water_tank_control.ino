@@ -13,7 +13,7 @@
    #include <DallasTemperature.h>
    #include <DHT.h>
 
-   char temp_string[3]; //empty char array to hold the converted temp float
+   char temp_string[2]; //empty char array to hold the converted temp float
    char hum_string[5];  //empty char array to hold the converted humidity float
    float hum_float;
 
@@ -70,13 +70,15 @@
 
 void loop() {
   unsigned char i = 0;
- for (i=0; i<36; i++){
+ for (i=0; i<36; i+=8){
     u8g.firstPage();
     do {
       fill(i);
       draw();
     } while( u8g.nextPage() );
+    delay(1000);
  }
+ 
 }
 
 void draw(){
@@ -85,11 +87,11 @@ void draw(){
   u8g.setFont(u8g_font_5x7);
   // upper frame ===============================================================
   u8g.drawFrame(65,5,8,8);
-  u8g.drawStr( 65, 20, "Carg"); //Carga
+  u8g.drawStr( 60, 20, "Carg"); //Carga
   u8g.drawFrame(85,5,8,8);
-  u8g.drawStr( 85, 20, "Res");
+  u8g.drawStr( 83, 20, "Res");
   u8g.drawFrame(105,5,8,8);
-  u8g.drawStr( 105, 20, "Frio"); // Frio
+  u8g.drawStr( 102, 20, "Frio"); // Frio
   //u8g.drawFrame(112,5,8,8);
   //u8g.drawStr( 112, 20, "Ca");
   // lower frame =============================================================
@@ -115,21 +117,21 @@ void draw(){
   u8g.drawLine(10, 52, 13, 52);
   // Times oo ================================================================
   u8g.drawCircle(20, 31, 2);
-  u8g.drawCircle(20, 35, 2);
+  u8g.drawCircle(20, 37, 2);
   u8g.drawCircle(20, 49, 2);
-  u8g.drawCircle(20, 54, 2);
+  u8g.drawCircle(20, 56, 2);
   // Cte =====================================================================
   u8g.setFont(u8g_font_5x8);
-  u8g.drawStr(30,57, "T Cte");
+  u8g.drawStr(30,57, "TCte");
   // Time ====================================================================
-  u8g.setFont(u8g_font_8x13B);
-  u8g.drawStr(7,17, "14:07");
+  u8g.setFont(u8g_font_10x20);
+  u8g.drawStr(5,17, "20:05");
   // Temperature =============================================================
 //  u8g.setFont(u8g_font_10x20);
 //  u8g.drawStr(30,42, "24");
   // °C ======================================================================
-  u8g.drawCircle(50, 29, 1);
-  u8g.drawStr(47,46, "C")
+  //u8g.drawCircle(52, 29, 1);
+  //u8g.drawStr(53,42, "C");
 
   // DS18B20 section ===========================================================
   sensors.requestTemperatures();
@@ -157,12 +159,14 @@ void draw(){
 
   // convert floats into char u8g strings
   // u8g.drawStr( 15, 13, "Temp");       // do this for temperature
-  dtostrf(tempC, 2, 1, temp_string);
+  dtostrf(tempC, 2, 0, temp_string);
   // Temperature =============================================================
   u8g.setFont(u8g_font_10x20);
   u8g.drawStr(30,42, temp_string);
-  //u8g.drawStr(27,45, "temp_string");
-  //u8g.drawStr(70,27, "C");
+  // °C ======================================================================
+  u8g.drawCircle(52, 30, 1);
+  u8g.drawStr(54,42, "C");
+
 
   //u8g.drawStr(26,45, "Hum");             // do this for humidity
   //dtostrf(hum_float, 3, 1, hum_string);
