@@ -13,7 +13,7 @@
    #include <DallasTemperature.h>
    #include <DHT.h>
 
-   char temp_string[5]; //empty char array to hold the converted temp float
+   char temp_string[3]; //empty char array to hold the converted temp float
    char hum_string[5];  //empty char array to hold the converted humidity float
    float hum_float;
 
@@ -125,8 +125,8 @@ void draw(){
   u8g.setFont(u8g_font_8x13B);
   u8g.drawStr(7,17, "14:07");
   // Temperature =============================================================
-  u8g.setFont(u8g_font_10x20);
-  u8g.drawStr(30,42, "24");
+//  u8g.setFont(u8g_font_10x20);
+//  u8g.drawStr(30,42, "24");
   // °C ======================================================================
   u8g.drawCircle(50, 29, 1);
   u8g.drawStr(47,46, "C")
@@ -158,6 +158,9 @@ void draw(){
   // convert floats into char u8g strings
   // u8g.drawStr( 15, 13, "Temp");       // do this for temperature
   dtostrf(tempC, 2, 1, temp_string);
+  // Temperature =============================================================
+  u8g.setFont(u8g_font_10x20);
+  u8g.drawStr(30,42, temp_string);
   //u8g.drawStr(27,45, "temp_string");
   //u8g.drawStr(70,27, "C");
 
